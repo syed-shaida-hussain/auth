@@ -17,7 +17,8 @@ const Signin = () => {
   const signinSubmitHandler = async (user) => {
     const { encodedToken} = await signinService(user);
     if (encodedToken !== undefined) {
-      localStorage.setItem("AUTH_TOKEN", JSON.stringify(encodedToken));
+      console.log(encodedToken)
+      localStorage.setItem("AUTH_TOKEN", encodedToken);
       // localStorage.setItem("username", JSON.stringify(name));
       setAuth(auth => ({
         ...auth,
@@ -26,7 +27,7 @@ const Signin = () => {
         // username: name,
       }));
       navigate("/")
-    }
+    } 
   };
 
   const logout = () =>{
