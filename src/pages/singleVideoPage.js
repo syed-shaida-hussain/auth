@@ -26,7 +26,10 @@ const SingleVideoPage = () => {
             const singleVideo = res.data.video;
             setCurrVideo(singleVideo)
         })
-    },[])
+        axios.get("/api/user/playlists" , {headers : {authorization : token}}).then(res =>  {
+          dispatchVideo({type : "GET_PLAYLISTS" , payload : res.data.playlists})
+        })
+    },[videoState])
 
   const deteteFromLikedService = async (video) => {
     try {
