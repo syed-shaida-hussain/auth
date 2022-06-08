@@ -1,21 +1,21 @@
 import { Header } from "../components/Header"
 import axios from "axios"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import "./videoListing.css"
 import {Sidebar} from "../components/Sidebar"
 import {useNavigate, Link} from "react-router-dom"
 import { useAuth } from "../contexts/auth-context"
+import { useLikedVideos } from "../contexts/liked-context"
 
 const CategoryClub = () => {
-    const [videos , setVideos ] = useState([])
     const {auth : {token}} = useAuth()
+    const {videoState} = useLikedVideos()
  
     const navigate = useNavigate()
   
     useEffect(() => {
       axios.get("/api/videos").then((res) => {
-        const allVideos = res.data.videos
-        setVideos(allVideos)
+        dispatchVideo({type : "GET_VIDEOS" , payload : res.data.videos})
       })
     },[])
 
@@ -49,7 +49,7 @@ const CategoryClub = () => {
     <hr/>
     
 <main className = "home-main">
-{videos.map(video => video.category === "club" && (<div key = {video._id} className = "video-card" onClick = {() => getSingleVideo(video)} >
+{videoState.videos.map(video => video.category === "club" && (<div key = {video._id} className = "video-card" onClick = {() => getSingleVideo(video)} >
             <img src= {video.imgsrc} className = "video" alt=""/>
             <h4 className = "margin">{video.title}</h4>
             <div className = "flex">

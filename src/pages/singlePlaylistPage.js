@@ -57,7 +57,7 @@ const SinglePlaylistPage = () => {
               <p className = "font-small margin" >{video.creator}</p>
             </div>
             </div>
-            <span class="material-icons delete-btn" onClick = {() => deleteVideoFromPlaylist(video)}>delete</span> 
+            <span class="material-icons delete-icon" onClick = {() => deleteVideoFromPlaylist(video)}>delete</span> 
         </div>)) :  <div className = "explore-suggestion margin margin-top-bottom">Playlist Empty . Add some videos to playlist
  <div className = "explore-btn"><Link to = "/videos" className = "link highlighted">Explore</Link></div> </div>}
 </main>

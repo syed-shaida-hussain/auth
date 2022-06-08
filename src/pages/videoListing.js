@@ -1,6 +1,6 @@
 import { Header } from "../components/Header"
 import axios from "axios"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import "./videoListing.css"
 import {Sidebar} from "../components/Sidebar"
 import {useNavigate } from "react-router-dom"
@@ -8,7 +8,6 @@ import { useAuth } from "../contexts/auth-context"
 import {Link} from "react-router-dom"
 import { useLikedVideos } from "../contexts/liked-context"
 const VideoListing = () => {
-    const [videos , setVideos ] = useState([])
     const {auth : {token}} = useAuth()
     const {videoState , dispatchVideo} = useLikedVideos()
  
@@ -16,8 +15,7 @@ const VideoListing = () => {
   
     useEffect(() => {
       axios.get("/api/videos").then((res) => {
-        const allVideos = res.data.videos
-        setVideos(allVideos)
+        dispatchVideo({type : "GET_VIDEOS" , payload : res.data.videos})
       })
     },[])
 
@@ -52,7 +50,7 @@ const VideoListing = () => {
     <hr/>
     
 <main className = "home-main">
-{videos.map(video => (<div key = {video._id} className = "video-card" onClick = {() => getSingleVideo(video)} >
+{videoState.videos.map(video => (<div key = {video._id} className = "video-card" onClick = {() => getSingleVideo(video)} >
             <img src= {video.imgsrc} className = "video" alt=""/>
             <h4 className = "margin">{video.title}</h4>
             <div className = "flex">

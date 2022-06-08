@@ -53,7 +53,7 @@ const PlaylistsPage = () => {
   {videoState.playlists.length > 0 ? <div className = "services margin-top-bottom ">
   {videoState.playlists.map(playlist => (<div key = {playlist._id} className = "video-card"  >
             <h4  onClick = {() => getSinglePlaylist(playlist)} className = "margin margin-more  playlist-name">{playlist.title}</h4>
-            <span class="material-icons delete-btn" onClick = {() => deletePlaylist(playlist)}>delete</span> 
+            <span class="material-icons delete-icon" onClick = {() => deletePlaylist(playlist)}>delete</span> 
         </div>))}
        
   </div> : <div className = "explore-suggestion margin margin-top-bottom">Create new playlists. Your list will be shown right here.

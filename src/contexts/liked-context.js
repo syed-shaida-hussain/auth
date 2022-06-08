@@ -3,6 +3,10 @@ import { useState, createContext, useContext, useReducer } from "react";
 
  const likeReducer = (state , action ) => {
      switch (action.type) {
+
+        case "GET_VIDEOS" : 
+            return {...state , videos : (state.videos , action.payload)}
+
         case "SET_LIKED_VIDEOS" :
             return {...state , likedVideos : [state.likedVideos , action.payload] }
         case  "GET_LIKED_VIDEOS" :
@@ -52,7 +56,7 @@ import { useState, createContext, useContext, useReducer } from "react";
 
 
  const LikedVideosProvider = ({children}) => {
-    const [videoState  , dispatchVideo] = useReducer(likeReducer ,  {likedVideos : [] , watchLater : [] , historyVideos : [] , playlists : [] , playlistVideos : [] })
+    const [videoState  , dispatchVideo] = useReducer(likeReducer ,  {videos : [] , likedVideos : [] , watchLater : [] , historyVideos : [] , playlists : [] , playlistVideos : [] })
 
     return <LikedContext.Provider value = {{   videoState , dispatchVideo }}>
         {children}
